@@ -53,7 +53,9 @@ public class AdMob extends CordovaPlugin {
                 return executeReady(callbackContext);
             case Actions.START:
                 MobileAds.initialize(cordova.getActivity(), status -> callbackContext.success(new JSONObject(new HashMap<String, Object>() {{
-                    put("version", MobileAds.getVersionString());
+                    // getVersionString() was removed when Google split the public AdMob
+                    // classes into play-services-ads-api; getVersion() is its replacement.
+                    put("version", MobileAds.getVersion().toString());
                 }})));
                 break;
             case Actions.CONFIG_REQUEST:
